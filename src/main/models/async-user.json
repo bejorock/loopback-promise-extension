@@ -1,0 +1,7 @@
+{
+  "name": "AsyncModel",
+  "base": "User",
+  "properties": {},
+  "acls": [],
+  "relations": {}
+}
