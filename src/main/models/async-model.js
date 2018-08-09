@@ -78,7 +78,7 @@ module.exports = function(AsyncModel) {
 
 	AsyncModel.iFindOne = function(filter) {
 		filter = (filter ? filter : {})
-		console.log(this)
+		console.log(this.constructor.findOne)
 		return new Promise((resolve, reject) => {
 			model.findOne(filter, (err, instance) => {
 				if(err) reject(err)
