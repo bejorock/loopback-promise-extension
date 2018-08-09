@@ -6,16 +6,16 @@ module.exports = function(User) {
 	AsyncModel(User)
 
 	// extend user basic functionality
-	User.iChangePassword = (userId, oldPassword, newPassword, options) => {
+	User.iChangePassword = function(userId, oldPassword, newPassword, options) {
 		options = (options ? options : {})
 		return model.changePassword(userId, oldPassword, newPassword, options)
 	}
 
-	User.iConfirm = (userId, token, redirect) => {
+	User.iConfirm = function(userId, token, redirect) {
 		return model.confirm(userId, token, redirect)
 	}
 
-	User.iGenerateVerificationToken = (user, options) => {
+	User.iGenerateVerificationToken = function(user, options) {
 		return new Promise((resolve, reject) => {
 			model.generateVerificationToken(user, options, (err, instance) => {
 				if(err) {
@@ -28,7 +28,7 @@ module.exports = function(User) {
 		})
 	}
 
-	User.iLogin = (credentials, include) => {
+	User.iLogin = function(credentials, include) {
 		return new Promise((resolve, reject) => {
 			model.login(credentials, include, (err, token) => {
 				if(err) reject(err)
@@ -37,7 +37,7 @@ module.exports = function(User) {
 		})
 	}
 
-	User.iLogout = (accessTokenID) => {
+	User.iLogout = function(accessTokenID) {
 		return new Promise((resolve, reject) => {
 			model.logout(accessTokenID, (err) => {
 				if(err) reject(err)
@@ -46,31 +46,31 @@ module.exports = function(User) {
 		})
 	}
 
-	User.iResetPassword = (options) => {
+	User.iResetPassword = function(options) {
 		return model.resetPassword(options)
 	}
 
-	User.iSetPassword = (userId, newPassword, options) => {
+	User.iSetPassword = function(userId, newPassword, options) {
 		return model.setPassword(userId, newPassword, options)
 	}
 
-	User.prototype.iChangePassword = (oldPassword, newPassword, options) => {
+	User.prototype.iChangePassword = function(oldPassword, newPassword, options) {
 		return model.prototype.changePassword.call(this, oldPassword, newPassword, options)
 	}
 
-	User.prototype.iCreateAccessToken = (data, options) => {
+	User.prototype.iCreateAccessToken = function(data, options) {
 		return model.prototype.createAccessToken.call(this, data, options)
 	}
 
-	User.prototype.iHasPassword = (password) => {
+	User.prototype.iHasPassword = function(password) {
 		return model.prototype.hasPassword.call(this, password)
 	}
 
-	User.prototype.iSetPassword = (newPassword, options) => {
+	User.prototype.iSetPassword = function(newPassword, options) {
 		return model.prototype.setPassword.call(this, newPassword, options)
 	}
 
-	User.prototype.iVerify = (verifyOptions) => {
+	User.prototype.iVerify = function(verifyOptions) {
 		return new Promise((resolve, reject) => {
 			model.prototype.verify.call(this, verifyOptions, (options, err, instance) => {
 				if(err) reject(err)
