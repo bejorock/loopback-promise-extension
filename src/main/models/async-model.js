@@ -10,7 +10,7 @@ module.exports = function(AsyncModel) {
 	AsyncModel.iCount = function(where) {
 		where = (where ? where : {});
 		return new Promise((resolve, reject) => {
-			model.count(where, (err, count) => {
+			this.count(where, (err, count) => {
 				if(err) reject(err)
 				else resolve(count)
 			})
@@ -21,7 +21,7 @@ module.exports = function(AsyncModel) {
 		if(!data)
 				throw new NotValidArgumentException()
 		return new Promise((resolve, reject) => {
-			model.create(data, (err, models) => {
+			this.create(data, (err, models) => {
 				if(err) reject(err)
 				else resolve(models)
 			})
@@ -31,7 +31,7 @@ module.exports = function(AsyncModel) {
 	AsyncModel.iDestroyAll = function(where) {
 		where = (where ? where : {})
 		return new Promise((resolve, reject) => {
-			model.destroyAll(where, (err, info, count) => {
+			this.destroyAll(where, (err, info, count) => {
 				if(err) reject(err)
 				else resolve({info, count})
 			})	
@@ -40,7 +40,7 @@ module.exports = function(AsyncModel) {
 
 	AsyncModel.iDestroyById = function(id) {
 		return new Promise((resolve, reject) => {
-			model.destroyById(id, (err) => {
+			this.destroyById(id, (err) => {
 				if(err) reject(err)
 				else resolve(id)
 			})
@@ -49,7 +49,7 @@ module.exports = function(AsyncModel) {
 
 	AsyncModel.iExists = function(id) {
 		return new Promise((resolve, reject) => {
-			model.exists(id, (err, exists) => {
+			this.exists(id, (err, exists) => {
 				if(err) reject(err)
 				else resolve(exists)
 			})
@@ -59,7 +59,7 @@ module.exports = function(AsyncModel) {
 	AsyncModel.iFind = function(filter) {
 		filter = (filter ? filter : {})
 		return new Promise((resolve, reject) => {
-			model.find(filter, (err, instances) => {
+			this.find(filter, (err, instances) => {
 				if(err) reject(err)
 				else resolve(instances)
 			})
@@ -69,7 +69,7 @@ module.exports = function(AsyncModel) {
 	AsyncModel.iFindById = function(id, filter) {
 		filter = (filter ? filter : {})
 		return new Promise((resolve, reject) => {
-			model.findById(id, filter, (err, instance) => {
+			this.findById(id, filter, (err, instance) => {
 				if(err) reject(err)
 				else resolve(instance)
 			})
@@ -78,9 +78,8 @@ module.exports = function(AsyncModel) {
 
 	AsyncModel.iFindOne = function(filter) {
 		filter = (filter ? filter : {})
-		console.log(this.constructor.findOne)
 		return new Promise((resolve, reject) => {
-			model.findOne(filter, (err, instance) => {
+			this.findOne(filter, (err, instance) => {
 				if(err) reject(err)
 				else resolve(instance)
 			})
@@ -90,7 +89,7 @@ module.exports = function(AsyncModel) {
 	AsyncModel.iFindOrCreate = function(filter, data) {
 		filter = (filter ? filter : {})
 		return new Promise((resolve, reject) => {
-			model.findOrCreate(filter, data, (err, instance, created) => {
+			this.findOrCreate(filter, data, (err, instance, created) => {
 				if(err) reject(err)
 				else resolve({instance, created})
 			})
@@ -99,7 +98,7 @@ module.exports = function(AsyncModel) {
 
 	AsyncModel.iReplaceById = function(id, data, options) {
 		return new Promise((resolve, reject) => {
-			model.replaceById(id, data, options, (err, instance) => {
+			this.replaceById(id, data, options, (err, instance) => {
 				if(err) reject(err)
 				else resolve(instance)
 			})
@@ -108,7 +107,7 @@ module.exports = function(AsyncModel) {
 
 	AsyncModel.iReplaceOrCreate = function(data, options) {
 		return new Promise((resolve, reject) => {
-			model.replaceOrCreate(data, options, (err, instance) => {
+			this.replaceOrCreate(data, options, (err, instance) => {
 				if(err) reject(err)
 				else resolve(instance)
 			})
@@ -118,7 +117,7 @@ module.exports = function(AsyncModel) {
 	AsyncModel.iUpdateAll = function(where, data) {
 		where = (where ? where : {})
 		return new Promise((resolve, reject) => {
-			model.updateAll(where, data, (err, info) => {
+			this.updateAll(where, data, (err, info) => {
 				if(err) reject(err)
 				else resolve(info)
 			})
@@ -127,7 +126,7 @@ module.exports = function(AsyncModel) {
 
 	AsyncModel.iUpsert = function(data) {
 		return new Promise((resolve, reject) => {
-			model.upsert(data, (err, instance) => {
+			this.upsert(data, (err, instance) => {
 				if(err) reject(err)
 				else resolve(instance)
 			})
@@ -137,7 +136,7 @@ module.exports = function(AsyncModel) {
 	AsyncModel.iUpsertWithWhere = function(where, data) {
 		where = (where ? where : {})
 		return new Promise((resolve, reject) => {
-			model.upsertWithWhere(where, data, (err, instance) => {
+			this.upsertWithWhere(where, data, (err, instance) => {
 				if(err) reject(err)
 				else resolve(instance)
 			})
@@ -146,7 +145,7 @@ module.exports = function(AsyncModel) {
 
 	AsyncModel.prototype.iDestroy = function() {
 		return new Promise((resolve, reject) => {
-			model.prototype.destroy.call(this, () => {
+			this.destroy(() => {
 				resolve()
 			})
 		})
@@ -154,7 +153,7 @@ module.exports = function(AsyncModel) {
 
 	AsyncModel.prototype.iReload = function() {
 		return new Promise((resolve, reject) => {
-			model.prototype.reload.call(this, (err, instance) => {
+			this.reload((err, instance) => {
 				if(err) reject(err)
 				else resolve(instance)
 			})
@@ -164,7 +163,7 @@ module.exports = function(AsyncModel) {
 	AsyncModel.prototype.iReplaceAttributes = function(data, options) {
 		options = (options ? options : {})
 		return new Promise((resolve, reject) => {
-			model.prototype.replaceAttributes.call(this, data, options, (err, instance) => {
+			this.replaceAttributes(data, options, (err, instance) => {
 				if(err) reject(err)
 				else resolve(instance)
 			})
@@ -174,7 +173,7 @@ module.exports = function(AsyncModel) {
 	AsyncModel.prototype.iSave = function(options) {
 		options = (options ? options : {})
 		return new Promise((resolve, reject) => {
-			model.prototype.save.call(this, options, (err, instance) => {
+			this.save(options, (err, instance) => {
 				if(err) reject(err)
 				else resolve(instance)
 			})
@@ -183,7 +182,7 @@ module.exports = function(AsyncModel) {
 
 	AsyncModel.prototype.iUpdateAttribute = function(name, value) {
 		return new Promise((resolve, reject) => {
-			model.prototype.updateAttribute.call(this, name, value, (err, instance) => {
+			this.updateAttribute(name, value, (err, instance) => {
 				if(err) reject(err)
 				else resolve(instance)
 			})
@@ -192,7 +191,7 @@ module.exports = function(AsyncModel) {
 
 	AsyncModel.prototype.iUpdateAttributes = function(data) {
 		return new Promise((resolve, reject) => {
-			model.prototype.updateAttributes.call(this, data, (err, instance) => {
+			this.updateAttributes(data, (err, instance) => {
 				if(err) reject(err)
 				else resolve(instance)
 			})

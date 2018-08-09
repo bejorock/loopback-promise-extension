@@ -1,6 +1,6 @@
 {
   "name": "loopback-promise-extension",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "loopback module to wrap basic function in promise style",
   "main": "index.js",
   "scripts": {
