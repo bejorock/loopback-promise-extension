@@ -1,8 +1,8 @@
 {
   "name": "loopback-promise-extension",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "loopback module to wrap basic function in promise style",
-  "main": "index.js",
+  "main": "src/main/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
